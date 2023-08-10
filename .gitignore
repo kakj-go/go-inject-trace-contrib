@@ -2,43 +2,8 @@
 *.o
 *.a
 *.so
-/api/**/*.go
-/api/**/*.json
-
-# Folders
-_obj
-_test
-
-# Architecture specific extensions/prefixes
-*.[568vq]
-[568vq].out
-
-*.cgo1.go
-*.cgo2.c
-_cgo_defun.c
-_cgo_gotypes.go
-_cgo_export.*
-
-_testmain.go
-
 *.exe
-dependencies-stamp
-/node_exporter
-/.build
-/.deps
-/.release
-/.tarballs
 
 # Intellij
-
 /.idea
 *.iml
-
-
-
-/vendor
-/bin
-k8s/app
-
-api/proto
-/internal/apiserver/service/http/http-client.env.json
