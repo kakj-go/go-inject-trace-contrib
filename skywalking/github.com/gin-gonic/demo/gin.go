@@ -1,5 +1,5 @@
 //inject:github.com/gin-gonic/gin/gin.go
-package gin
+package demo
 
 import (
 	"fmt"
