@@ -1,5 +1,7 @@
 # otelc — OpenTelemetry compile-time instrumentation as go-inject rules
 
+[English](README.md) | [中文](README_CN.md)
+
 Port of [opentelemetry-go-compile-instrumentation](https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation)
 (otelc) onto [go-inject](https://github.com/kakj-go/go-inject): the same
 interception points, span semantics, attribute sets, and runtime flow as the
@@ -19,12 +21,38 @@ import _ "github.com/kakj-go/go-inject-trace-contrib/otelc"
 go build -toolexec=go-inject .
 ```
 
-Configuration is read at runtime from the standard `OTEL_*` environment
-variables (autoexport/autoprop: `OTEL_SERVICE_NAME`,
-`OTEL_EXPORTER_OTLP_ENDPOINT`, `OTEL_TRACES/METRICS/LOGS_EXPORTER`,
-`OTEL_PROPAGATORS`, `OTEL_TRACES_SAMPLER`, …), plus
-`OTEL_GO_ENABLED/DISABLED_INSTRUMENTATIONS` per-library gating — matching the
-upstream `pkg/runtime` behavior.
+## Configuration
+
+Runtime configuration uses the standard `OTEL_*` environment variables
+(via autoexport/autoprop/the SDK resource), matching the upstream
+`pkg/runtime` behavior.
+
+Required (defaults exist but are only useful for local smoke tests):
+
+| Variable | Meaning | Default if unset |
+|---|---|---|
+| `OTEL_SERVICE_NAME` | service name | `unknown_service:<exe>` |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | OTLP collector base URL | `http://localhost:4318` |
+
+Everything else — `OTEL_TRACES/METRICS/LOGS_EXPORTER`, per-signal endpoints,
+protocol, headers, timeouts, `OTEL_PROPAGATORS`, `OTEL_SDK_DISABLED`,
+`OTEL_LOG_LEVEL`, and the per-library gating
+`OTEL_GO_ENABLED/DISABLED_INSTRUMENTATIONS` (names like `nethttp`, `grpc`,
+`database`, `logs/slog`, …) — is compatible with the
+[OpenTelemetry environment-variable spec][otelnv] and the
+[upstream otelc][upstream]; see those docs for the full variable list and
+defaults.
+
+Two port-specific notes:
+
+- `OTEL_TRACES_SAMPLER` is not wired yet: sampling is always
+  `ParentBased(AlwaysSample)`.
+- The batch processor uses fixed settings (1s flush, 512 spans/batch);
+  `OTEL_BSP_*` is not read. `OTEL_GO_SIMPLE_SPAN_PROCESSOR=true` selects
+  immediate (simple) export, as upstream.
+
+[otelnv]: https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/
+[upstream]: https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation
 
 ## Layout
 

@@ -1,0 +1,1508 @@
+segmentItems:
+- serviceName: demo-backend
+  segmentSize: 13
+  segments:
+  - segmentId: d9057baab58811f1bc549e12216f898f.1.40017270786660002
+    spans:
+    - operationName: Mysql/Ping
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Database
+      startTime: 1789973478666
+      endTime: 1789973478669
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.type, value: Mysql}
+  - segmentId: d9057baab58811f1bc549e12216f898f.1.40017270786690004
+    spans:
+    - operationName: Mysql/Exec
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Database
+      startTime: 1789973478669
+      endTime: 1789973478700
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - key: db.statement
+        value: "CREATE TABLE IF NOT EXISTS inventory (\n\t\tsku VARCHAR(64) PRIMARY\
+          \ KEY,\n\t\tstock INT NOT NULL)"
+      - {key: db.type, value: Mysql}
+  - segmentId: d9057baab58811f1bc549e12216f898f.1.40017270787000006
+    spans:
+    - operationName: Mysql/Exec
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Database
+      startTime: 1789973478700
+      endTime: 1789973478708
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'INSERT IGNORE INTO inventory (sku, stock) VALUES
+          (''SKU-42'', 100)'}
+      - {key: db.type, value: Mysql}
+  - segmentId: d9057baab58811f1bc549e12216f898f.1.40017270787090010
+    spans:
+    - operationName: redis/client
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Cache
+      startTime: 1789973478709
+      endTime: 1789973478710
+      componentId: 5014
+      isError: true
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: ''}
+      - {key: cache.cmd, value: client}
+      - {key: cache.key, value: maint_notifications}
+      - {key: cache.args, value: 'client maint_notifications on moving-endpoint-type
+          internal-ip: '}
+      logs:
+      - logEvent:
+        - {key: ERR unknown subcommand 'maint_notifications'. Try CLIENT HELP., value: ''}
+  - segmentId: d9057baab58811f1bc549e12216f898f.1.40017270787100012
+    spans:
+    - operationName: redis/pipeline
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Cache
+      startTime: 1789973478710
+      endTime: 1789973478710
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.cmd, value: 'pipeline:client/client'}
+  - segmentId: d9057baab58811f1bc549e12216f898f.1.40017270787080008
+    spans:
+    - operationName: redis/dial
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Cache
+      startTime: 1789973478708
+      endTime: 1789973478708
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+    - operationName: redis/ping
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Cache
+      startTime: 1789973478708
+      endTime: 1789973478712
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: ''}
+      - {key: cache.cmd, value: ping}
+      - {key: cache.key, value: ''}
+      - {key: cache.args, value: 'ping: '}
+  - segmentId: d9057baab58811f1bc549e12216f898f.87.40017270859740002
+    spans:
+    - operationName: GET:/healthz
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973485974
+      endTime: 1789973485974
+      componentId: 5004
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8081/healthz'}
+      - {key: status_code, value: '200'}
+  - segmentId: d9057baab58811f1bc549e12216f898f.74.40017271022740001
+    spans:
+    - operationName: Mysql/Query
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Database
+      startTime: 1789973502274
+      endTime: 1789973502275
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'SELECT stock FROM inventory WHERE sku = ?'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: SKU-42}
+    - operationName: GET:/api/inventory
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973502274
+      endTime: 1789973502275
+      componentId: 5004
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8081/api/inventory'}
+      - {key: status_code, value: '200'}
+      refs:
+      - {parentEndpoint: 'GET:/api/order', networkAddress: '127.0.0.1:8081', refType: CrossProcess,
+        parentSpanId: 3, parentTraceSegmentId: d916beefb58811f180489e12216f898f.41.40017271022640002,
+        parentServiceInstance: d919b39db58811f180489e12216f898f@198.18.0.1, parentService: demo-frontend,
+        traceId: d916beefb58811f180489e12216f898f.41.40017271022640001}
+  - segmentId: d9057baab58811f1bc549e12216f898f.76.40017271022760001
+    spans:
+    - operationName: redis/set
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Cache
+      startTime: 1789973502276
+      endTime: 1789973502277
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: write}
+      - {key: cache.cmd, value: set}
+      - {key: cache.key, value: 'reserve:SKU-42'}
+      - {key: cache.args, value: 'set reserve:SKU-42 1 ex 60: '}
+    - operationName: Mysql/Exec
+      parentSpanId: 0
+      spanId: 2
+      spanLayer: Database
+      startTime: 1789973502277
+      endTime: 1789973502288
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'UPDATE inventory SET stock = stock - ? WHERE sku
+          = ?'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: '1, SKU-42'}
+    - operationName: api.Inventory.Reserve/Server/Response/SendResponse
+      parentSpanId: 0
+      spanId: 3
+      spanLayer: RPCFramework
+      startTime: 1789973502288
+      endTime: 1789973502288
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: RPCFramework
+      startTime: 1789973502276
+      endTime: 1789973502288
+      componentId: 23
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+      - {key: rpc.type, value: Unary}
+      refs:
+      - {parentEndpoint: 'GET:/api/order', networkAddress: '127.0.0.1:9090', refType: CrossProcess,
+        parentSpanId: 4, parentTraceSegmentId: d916beefb58811f180489e12216f898f.41.40017271022640002,
+        parentServiceInstance: d919b39db58811f180489e12216f898f@198.18.0.1, parentService: demo-frontend,
+        traceId: d916beefb58811f180489e12216f898f.41.40017271022640001}
+  - segmentId: d9057baab58811f1bc549e12216f898f.74.40017271033480002
+    spans:
+    - operationName: Mysql/Query
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Database
+      startTime: 1789973503348
+      endTime: 1789973503349
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'SELECT stock FROM inventory WHERE sku = ?'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: SKU-42}
+    - operationName: GET:/api/inventory
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973503348
+      endTime: 1789973503349
+      componentId: 5004
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8081/api/inventory'}
+      - {key: status_code, value: '200'}
+      refs:
+      - {parentEndpoint: 'GET:/api/order', networkAddress: '127.0.0.1:8081', refType: CrossProcess,
+        parentSpanId: 3, parentTraceSegmentId: d916beefb58811f180489e12216f898f.157.40017271033420002,
+        parentServiceInstance: d919b39db58811f180489e12216f898f@198.18.0.1, parentService: demo-frontend,
+        traceId: d916beefb58811f180489e12216f898f.157.40017271033420001}
+  - segmentId: d9057baab58811f1bc549e12216f898f.77.40017271033500001
+    spans:
+    - operationName: redis/set
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Cache
+      startTime: 1789973503350
+      endTime: 1789973503350
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: write}
+      - {key: cache.cmd, value: set}
+      - {key: cache.key, value: 'reserve:SKU-42'}
+      - {key: cache.args, value: 'set reserve:SKU-42 1 ex 60: '}
+    - operationName: Mysql/Exec
+      parentSpanId: 0
+      spanId: 2
+      spanLayer: Database
+      startTime: 1789973503350
+      endTime: 1789973503357
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'UPDATE inventory SET stock = stock - ? WHERE sku
+          = ?'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: '1, SKU-42'}
+    - operationName: api.Inventory.Reserve/Server/Response/SendResponse
+      parentSpanId: 0
+      spanId: 3
+      spanLayer: RPCFramework
+      startTime: 1789973503357
+      endTime: 1789973503357
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: RPCFramework
+      startTime: 1789973503350
+      endTime: 1789973503357
+      componentId: 23
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+      - {key: rpc.type, value: Unary}
+      refs:
+      - {parentEndpoint: 'GET:/api/order', networkAddress: '127.0.0.1:9090', refType: CrossProcess,
+        parentSpanId: 4, parentTraceSegmentId: d916beefb58811f180489e12216f898f.157.40017271033420002,
+        parentServiceInstance: d919b39db58811f180489e12216f898f@198.18.0.1, parentService: demo-frontend,
+        traceId: d916beefb58811f180489e12216f898f.157.40017271033420001}
+  - segmentId: d9057baab58811f1bc549e12216f898f.74.40017271044310003
+    spans:
+    - operationName: Mysql/Query
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Database
+      startTime: 1789973504431
+      endTime: 1789973504432
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'SELECT stock FROM inventory WHERE sku = ?'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: SKU-42}
+    - operationName: GET:/api/inventory
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973504431
+      endTime: 1789973504432
+      componentId: 5004
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8081/api/inventory'}
+      - {key: status_code, value: '200'}
+      refs:
+      - {parentEndpoint: 'GET:/api/order', networkAddress: '127.0.0.1:8081', refType: CrossProcess,
+        parentSpanId: 3, parentTraceSegmentId: d916beefb58811f180489e12216f898f.169.40017271044150002,
+        parentServiceInstance: d919b39db58811f180489e12216f898f@198.18.0.1, parentService: demo-frontend,
+        traceId: d916beefb58811f180489e12216f898f.169.40017271044150001}
+  - segmentId: d9057baab58811f1bc549e12216f898f.136.40017271044330001
+    spans:
+    - operationName: redis/set
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Cache
+      startTime: 1789973504433
+      endTime: 1789973504434
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: write}
+      - {key: cache.cmd, value: set}
+      - {key: cache.key, value: 'reserve:SKU-42'}
+      - {key: cache.args, value: 'set reserve:SKU-42 1 ex 60: '}
+    - operationName: Mysql/Exec
+      parentSpanId: 0
+      spanId: 2
+      spanLayer: Database
+      startTime: 1789973504434
+      endTime: 1789973504449
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'UPDATE inventory SET stock = stock - ? WHERE sku
+          = ?'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: '1, SKU-42'}
+    - operationName: api.Inventory.Reserve/Server/Response/SendResponse
+      parentSpanId: 0
+      spanId: 3
+      spanLayer: RPCFramework
+      startTime: 1789973504449
+      endTime: 1789973504449
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: RPCFramework
+      startTime: 1789973504433
+      endTime: 1789973504449
+      componentId: 23
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+      - {key: rpc.type, value: Unary}
+      refs:
+      - {parentEndpoint: 'GET:/api/order', networkAddress: '127.0.0.1:9090', refType: CrossProcess,
+        parentSpanId: 4, parentTraceSegmentId: d916beefb58811f180489e12216f898f.169.40017271044150002,
+        parentServiceInstance: d919b39db58811f180489e12216f898f@198.18.0.1, parentService: demo-frontend,
+        traceId: d916beefb58811f180489e12216f898f.169.40017271044150001}
+- serviceName: demo-frontend
+  segmentSize: 9
+  segments:
+  - segmentId: d916beefb58811f180489e12216f898f.1.40017270787820002
+    spans:
+    - operationName: Mysql/Ping
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Database
+      startTime: 1789973478782
+      endTime: 1789973478784
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.type, value: Mysql}
+  - segmentId: d916beefb58811f180489e12216f898f.1.40017270787840004
+    spans:
+    - operationName: Mysql/Exec
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Database
+      startTime: 1789973478784
+      endTime: 1789973478816
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - key: db.statement
+        value: "CREATE TABLE IF NOT EXISTS orders (\n\t\tid INT AUTO_INCREMENT PRIMARY\
+          \ KEY,\n\t\tsku VARCHAR(64) NOT NULL,\n\t\tqty INT NOT NULL,\n\t\tcreated_at\
+          \ TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
+      - {key: db.type, value: Mysql}
+  - segmentId: d916beefb58811f180489e12216f898f.1.40017270788170008
+    spans:
+    - operationName: redis/client
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Cache
+      startTime: 1789973478817
+      endTime: 1789973478818
+      componentId: 5014
+      isError: true
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: ''}
+      - {key: cache.cmd, value: client}
+      - {key: cache.key, value: maint_notifications}
+      - {key: cache.args, value: 'client maint_notifications on moving-endpoint-type
+          internal-ip: '}
+      logs:
+      - logEvent:
+        - {key: ERR unknown subcommand 'maint_notifications'. Try CLIENT HELP., value: ''}
+  - segmentId: d916beefb58811f180489e12216f898f.1.40017270788180010
+    spans:
+    - operationName: redis/pipeline
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Cache
+      startTime: 1789973478818
+      endTime: 1789973478818
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.cmd, value: 'pipeline:client/client'}
+  - segmentId: d916beefb58811f180489e12216f898f.1.40017270788160006
+    spans:
+    - operationName: redis/dial
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Cache
+      startTime: 1789973478816
+      endTime: 1789973478816
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+    - operationName: redis/ping
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Cache
+      startTime: 1789973478816
+      endTime: 1789973478819
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: ''}
+      - {key: cache.cmd, value: ping}
+      - {key: cache.key, value: ''}
+      - {key: cache.args, value: 'ping: '}
+  - segmentId: d916beefb58811f180489e12216f898f.40.40017270859470002
+    spans:
+    - operationName: GET:/healthz
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973485947
+      endTime: 1789973485947
+      componentId: 5006
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8080/healthz'}
+      - {key: status_code, value: '200'}
+  - segmentId: d916beefb58811f180489e12216f898f.41.40017271022640002
+    spans:
+    - operationName: Mysql/Exec
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Database
+      startTime: 1789973502264
+      endTime: 1789973502273
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'INSERT INTO orders (sku, qty) VALUES (?, ?)'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: 'SKU-42, 1'}
+    - operationName: redis/set
+      parentSpanId: 0
+      spanId: 2
+      spanLayer: Cache
+      startTime: 1789973502273
+      endTime: 1789973502273
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: write}
+      - {key: cache.cmd, value: set}
+      - {key: cache.key, value: 'order:1'}
+      - {key: cache.args, value: 'set order:1 SKU-42 ex 60: '}
+    - operationName: GET:/api/inventory
+      parentSpanId: 0
+      spanId: 3
+      spanLayer: Http
+      startTime: 1789973502273
+      endTime: 1789973502275
+      componentId: 5005
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:8081
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8081/api/inventory'}
+      - {key: status_code, value: '200'}
+    - operationName: api.Inventory.Reserve/Client/Request/SendMsg
+      parentSpanId: 4
+      spanId: 5
+      spanLayer: RPCFramework
+      startTime: 1789973502276
+      endTime: 1789973502276
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve/Client/Response/RecvMsg
+      parentSpanId: 4
+      spanId: 6
+      spanLayer: RPCFramework
+      startTime: 1789973502276
+      endTime: 1789973502288
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve
+      parentSpanId: 0
+      spanId: 4
+      spanLayer: RPCFramework
+      startTime: 1789973502275
+      endTime: 1789973502288
+      componentId: 23
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:9090
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+      - {key: rpc.type, value: Unary}
+    - operationName: redis/get
+      parentSpanId: 0
+      spanId: 7
+      spanLayer: Cache
+      startTime: 1789973502288
+      endTime: 1789973502289
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: read}
+      - {key: cache.cmd, value: get}
+      - {key: cache.key, value: 'order:1'}
+      - {key: cache.args, value: 'get order:1: '}
+    - operationName: GET:/api/order
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973502264
+      endTime: 1789973502289
+      componentId: 5006
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8080/api/order'}
+      - {key: status_code, value: '200'}
+  - segmentId: d916beefb58811f180489e12216f898f.157.40017271033420002
+    spans:
+    - operationName: Mysql/Exec
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Database
+      startTime: 1789973503342
+      endTime: 1789973503347
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'INSERT INTO orders (sku, qty) VALUES (?, ?)'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: 'SKU-42, 1'}
+    - operationName: redis/set
+      parentSpanId: 0
+      spanId: 2
+      spanLayer: Cache
+      startTime: 1789973503347
+      endTime: 1789973503348
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: write}
+      - {key: cache.cmd, value: set}
+      - {key: cache.key, value: 'order:2'}
+      - {key: cache.args, value: 'set order:2 SKU-42 ex 60: '}
+    - operationName: GET:/api/inventory
+      parentSpanId: 0
+      spanId: 3
+      spanLayer: Http
+      startTime: 1789973503348
+      endTime: 1789973503349
+      componentId: 5005
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:8081
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8081/api/inventory'}
+      - {key: status_code, value: '200'}
+    - operationName: api.Inventory.Reserve/Client/Request/SendMsg
+      parentSpanId: 4
+      spanId: 5
+      spanLayer: RPCFramework
+      startTime: 1789973503349
+      endTime: 1789973503349
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve/Client/Response/RecvMsg
+      parentSpanId: 4
+      spanId: 6
+      spanLayer: RPCFramework
+      startTime: 1789973503349
+      endTime: 1789973503357
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve
+      parentSpanId: 0
+      spanId: 4
+      spanLayer: RPCFramework
+      startTime: 1789973503349
+      endTime: 1789973503357
+      componentId: 23
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:9090
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+      - {key: rpc.type, value: Unary}
+    - operationName: redis/get
+      parentSpanId: 0
+      spanId: 7
+      spanLayer: Cache
+      startTime: 1789973503357
+      endTime: 1789973503358
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: read}
+      - {key: cache.cmd, value: get}
+      - {key: cache.key, value: 'order:2'}
+      - {key: cache.args, value: 'get order:2: '}
+    - operationName: GET:/api/order
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973503342
+      endTime: 1789973503358
+      componentId: 5006
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8080/api/order'}
+      - {key: status_code, value: '200'}
+  - segmentId: d916beefb58811f180489e12216f898f.169.40017271044150002
+    spans:
+    - operationName: Mysql/Exec
+      parentSpanId: 0
+      spanId: 1
+      spanLayer: Database
+      startTime: 1789973504415
+      endTime: 1789973504430
+      componentId: 5012
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:33061
+      skipAnalysis: false
+      tags:
+      - {key: db.statement, value: 'INSERT INTO orders (sku, qty) VALUES (?, ?)'}
+      - {key: db.type, value: Mysql}
+      - {key: db.sql.parameters, value: 'SKU-42, 1'}
+    - operationName: redis/set
+      parentSpanId: 0
+      spanId: 2
+      spanLayer: Cache
+      startTime: 1789973504430
+      endTime: 1789973504431
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: write}
+      - {key: cache.cmd, value: set}
+      - {key: cache.key, value: 'order:3'}
+      - {key: cache.args, value: 'set order:3 SKU-42 ex 60: '}
+    - operationName: GET:/api/inventory
+      parentSpanId: 0
+      spanId: 3
+      spanLayer: Http
+      startTime: 1789973504431
+      endTime: 1789973504432
+      componentId: 5005
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:8081
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8081/api/inventory'}
+      - {key: status_code, value: '200'}
+    - operationName: api.Inventory.Reserve/Client/Request/SendMsg
+      parentSpanId: 4
+      spanId: 5
+      spanLayer: RPCFramework
+      startTime: 1789973504432
+      endTime: 1789973504432
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve/Client/Response/RecvMsg
+      parentSpanId: 4
+      spanId: 6
+      spanLayer: RPCFramework
+      startTime: 1789973504432
+      endTime: 1789973504449
+      componentId: 23
+      isError: false
+      spanType: Local
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+    - operationName: api.Inventory.Reserve
+      parentSpanId: 0
+      spanId: 4
+      spanLayer: RPCFramework
+      startTime: 1789973504432
+      endTime: 1789973504449
+      componentId: 23
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:9090
+      skipAnalysis: false
+      tags:
+      - {key: url, value: /api.Inventory/Reserve}
+      - {key: rpc.type, value: Unary}
+    - operationName: redis/get
+      parentSpanId: 0
+      spanId: 7
+      spanLayer: Cache
+      startTime: 1789973504449
+      endTime: 1789973504449
+      componentId: 5014
+      isError: false
+      spanType: Exit
+      peer: 127.0.0.1:63791
+      skipAnalysis: false
+      tags:
+      - {key: cache.type, value: redis}
+      - {key: cache.op, value: read}
+      - {key: cache.cmd, value: get}
+      - {key: cache.key, value: 'order:3'}
+      - {key: cache.args, value: 'get order:3: '}
+    - operationName: GET:/api/order
+      parentSpanId: -1
+      spanId: 0
+      spanLayer: Http
+      startTime: 1789973504415
+      endTime: 1789973504449
+      componentId: 5006
+      isError: false
+      spanType: Entry
+      peer: ''
+      skipAnalysis: false
+      tags:
+      - {key: http.method, value: GET}
+      - {key: url, value: '127.0.0.1:8080/api/order'}
+      - {key: status_code, value: '200'}
+meterItems:
+- serviceName: demo-backend
+  meterSize: 43
+  meters:
+  - meterId:
+      name: instance_golang_gc_count_labeled
+      tags:
+      - {name: type, value: total}
+    singleValue: 2.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: released}
+    singleValue: 4227072.0
+  - meterId:
+      name: sw_go_finished_ignored_context_counter
+      tags: []
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: stacks}
+    singleValue: 655360.0
+  - meterId:
+      name: instance_golang_live_goroutines_num
+      tags: []
+    singleValue: 26.0
+  - meterId:
+      name: instance_golang_gc_count_labeled
+      tags:
+      - {name: type, value: automatic}
+    singleValue: 2.0
+  - meterId:
+      name: sw_go_created_tracing_context_counter
+      tags:
+      - {name: created_by, value: propagated}
+    singleValue: 0.0
+  - meterId:
+      name: sw_go_created_ignored_context_counter
+      tags:
+      - {name: created_by, value: sampler}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_heap_frees
+      tags: []
+    singleValue: 278320.0
+  - meterId:
+      name: instance_golang_gc_limiter_last_enabled
+      tags: []
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_memory_other
+      tags: []
+    singleValue: 2293494.0
+  - meterId:
+      name: instance_golang_os_threads_num
+      tags: []
+    singleValue: 16.0
+  - meterId:
+      name: instance_golang_heap_alloc_size
+      tags: []
+    singleValue: 5113936.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: unused}
+    singleValue: 2627296.0
+  - meterId:
+      name: instance_golang_gc_stack_starting_size
+      tags: []
+    singleValue: 8192.0
+  - meterId:
+      name: instance_golang_gc_pauses
+      tags: []
+    histogramBuckets: [0.0, 64.0, 128.0, 192.0, 256.0, 320.0, 384.0, 448.0, 512.0,
+      640.0, 768.0, 896.0, 1024.0, 1280.0, 1536.0, 1792.0, 2048.0, 2560.0, 3072.0,
+      3584.0, 4096.0, 5120.0, 6144.0, 7168.0, 8192.0, 10240.0, 12288.0, 14336.0, 16384.0,
+      20480.0, 24576.0, 28672.0, 32768.0, 40960.0, 49152.0, 57344.0, 65536.0, 81920.0,
+      98304.0, 114688.0, 131072.0, 163840.0, 196608.0, 229376.0, 262144.0, 327680.0,
+      393216.0, 458752.0, 524288.0, 655360.0, 786432.0, 917504.0, 1048576.0, 1310720.0,
+      1572864.0, 1835008.0, 2097152.0, 2621440.0, 3145728.0, 3670016.0, 4194304.0,
+      5242880.0, 6291456.0, 7340032.0, 8388608.0, 1.048576E7, 1.2582912E7, 1.4680064E7,
+      1.6777216E7, 2.097152E7, 2.5165824E7, 2.9360128E7, 3.3554432E7, 4.194304E7,
+      5.0331648E7, 5.8720256E7, 6.7108864E7, 8.388608E7, 1.00663296E8, 1.17440512E8,
+      1.34217728E8, 1.6777216E8, 2.01326592E8, 2.34881024E8, 2.68435456E8, 3.3554432E8,
+      4.02653184E8, 4.69762048E8, 5.36870912E8, 6.7108864E8, 8.05306368E8, 9.39524096E8,
+      1.073741824E9, 1.34217728E9, 1.610612736E9, 1.879048192E9, 2.147483648E9, 2.68435456E9,
+      3.221225472E9, 3.758096384E9, 4.294967296E9, 5.36870912E9, 6.442450944E9, 7.516192768E9,
+      8.589934592E9, 1.073741824E10, 1.2884901888E10, 1.5032385536E10, 1.7179869184E10,
+      2.147483648E10, 2.5769803776E10, 3.0064771072E10, 3.4359738368E10, 4.294967296E10,
+      5.1539607552E10, 6.0129542144E10, 6.8719476736E10, 8.589934592E10, 1.03079215104E11,
+      1.20259084288E11, 1.37438953472E11, 1.7179869184E11, 2.06158430208E11, 2.40518168576E11,
+      2.74877906944E11, 3.4359738368E11, 4.12316860416E11, 4.81036337152E11, 5.49755813888E11,
+      6.8719476736E11, 8.24633720832E11, 9.62072674304E11, 1.099511627776E12, 1.37438953472E12,
+      1.649267441664E12, 1.924145348608E12, 2.199023255552E12, 2.74877906944E12, 3.298534883328E12,
+      3.848290697216E12, 4.398046511104E12, 5.49755813888E12, 6.597069766656E12, 7.696581394432E12,
+      8.796093022208E12, 1.099511627776E13, 1.3194139533312E13, 1.5393162788864E13,
+      1.7592186044416E13, 2.199023255552E13, 2.6388279066624E13, 3.0786325577728E13,
+      3.5184372088832E13, 4.398046511104E13, 5.2776558133248E13, 6.1572651155456E13,
+      7.0368744177664E13, 8.796093022208E13, 1.05553116266496E14, 1.23145302310912E14,
+      1.40737488355328E14]
+    histogramValues: [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  - meterId:
+      name: sw_go_created_ignored_context_counter
+      tags:
+      - {name: created_by, value: propagated}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_memory_os_stacks
+      tags: []
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_cgo_calls
+      tags: []
+    singleValue: 761.0
+  - meterId:
+      name: instance_golang_sched_latencies
+      tags: []
+    histogramBuckets: [0.0, 64.0, 128.0, 192.0, 256.0, 320.0, 384.0, 448.0, 512.0,
+      640.0, 768.0, 896.0, 1024.0, 1280.0, 1536.0, 1792.0, 2048.0, 2560.0, 3072.0,
+      3584.0, 4096.0, 5120.0, 6144.0, 7168.0, 8192.0, 10240.0, 12288.0, 14336.0, 16384.0,
+      20480.0, 24576.0, 28672.0, 32768.0, 40960.0, 49152.0, 57344.0, 65536.0, 81920.0,
+      98304.0, 114688.0, 131072.0, 163840.0, 196608.0, 229376.0, 262144.0, 327680.0,
+      393216.0, 458752.0, 524288.0, 655360.0, 786432.0, 917504.0, 1048576.0, 1310720.0,
+      1572864.0, 1835008.0, 2097152.0, 2621440.0, 3145728.0, 3670016.0, 4194304.0,
+      5242880.0, 6291456.0, 7340032.0, 8388608.0, 1.048576E7, 1.2582912E7, 1.4680064E7,
+      1.6777216E7, 2.097152E7, 2.5165824E7, 2.9360128E7, 3.3554432E7, 4.194304E7,
+      5.0331648E7, 5.8720256E7, 6.7108864E7, 8.388608E7, 1.00663296E8, 1.17440512E8,
+      1.34217728E8, 1.6777216E8, 2.01326592E8, 2.34881024E8, 2.68435456E8, 3.3554432E8,
+      4.02653184E8, 4.69762048E8, 5.36870912E8, 6.7108864E8, 8.05306368E8, 9.39524096E8,
+      1.073741824E9, 1.34217728E9, 1.610612736E9, 1.879048192E9, 2.147483648E9, 2.68435456E9,
+      3.221225472E9, 3.758096384E9, 4.294967296E9, 5.36870912E9, 6.442450944E9, 7.516192768E9,
+      8.589934592E9, 1.073741824E10, 1.2884901888E10, 1.5032385536E10, 1.7179869184E10,
+      2.147483648E10, 2.5769803776E10, 3.0064771072E10, 3.4359738368E10, 4.294967296E10,
+      5.1539607552E10, 6.0129542144E10, 6.8719476736E10, 8.589934592E10, 1.03079215104E11,
+      1.20259084288E11, 1.37438953472E11, 1.7179869184E11, 2.06158430208E11, 2.40518168576E11,
+      2.74877906944E11, 3.4359738368E11, 4.12316860416E11, 4.81036337152E11, 5.49755813888E11,
+      6.8719476736E11, 8.24633720832E11, 9.62072674304E11, 1.099511627776E12, 1.37438953472E12,
+      1.649267441664E12, 1.924145348608E12, 2.199023255552E12, 2.74877906944E12, 3.298534883328E12,
+      3.848290697216E12, 4.398046511104E12, 5.49755813888E12, 6.597069766656E12, 7.696581394432E12,
+      8.796093022208E12, 1.099511627776E13, 1.3194139533312E13, 1.5393162788864E13,
+      1.7592186044416E13, 2.199023255552E13, 2.6388279066624E13, 3.0786325577728E13,
+      3.5184372088832E13, 4.398046511104E13, 5.2776558133248E13, 6.1572651155456E13,
+      7.0368744177664E13, 8.796093022208E13, 1.05553116266496E14, 1.23145302310912E14,
+      1.40737488355328E14]
+    histogramValues: [142, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  - meterId:
+      name: instance_golang_heap_frees_objects
+      tags: []
+    singleValue: 2384.0
+  - meterId:
+      name: sw_go_created_tracing_context_counter
+      tags:
+      - {name: created_by, value: sampler}
+    singleValue: 8.0
+  - meterId:
+      name: instance_golang_gc_heap_frees_by_size
+      tags: []
+    histogramBuckets: [0.0, 1.0, 9.0, 17.0, 25.0, 33.0, 49.0, 65.0, 81.0, 97.0, 113.0,
+      129.0, 145.0, 161.0, 177.0, 193.0, 209.0, 225.0, 241.0, 257.0, 289.0, 321.0,
+      353.0, 385.0, 417.0, 449.0, 481.0, 513.0, 577.0, 641.0, 705.0, 769.0, 897.0,
+      1025.0, 1153.0, 1281.0, 1409.0, 1537.0, 1793.0, 2049.0, 2305.0, 2689.0, 3073.0,
+      3201.0, 3457.0, 4097.0, 4865.0, 5377.0, 6145.0, 6529.0, 6785.0, 6913.0, 8193.0,
+      9473.0, 9729.0, 10241.0, 10881.0, 12289.0, 13569.0, 14337.0, 16385.0, 18433.0,
+      19073.0, 20481.0, 21761.0, 24577.0, 27265.0, 28673.0, 32769.0]
+    histogramValues: [0, 180, 661, 228, 191, 379, 121, 122, 33, 189, 32, 8, 24, 1,
+      8, 80, 8, 5, 11, 17, 18, 10, 1, 1, 1, 1, 5, 8, 6, 6, 1, 1, 5, 3, 0, 4, 0, 0,
+      1, 7, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0,
+      0, 0, 0, 0, 0]
+  - meterId:
+      name: instance_golang_gc_heap_objects
+      tags: []
+    singleValue: 4202.0
+  - meterId:
+      name: instance_golang_heap_alloc_objects
+      tags: []
+    singleValue: 6586.0
+  - meterId:
+      name: instance_golang_memory_metadata_other
+      tags: []
+    singleValue: 2731056.0
+  - meterId:
+      name: instance_golang_metadata_mspan_labeled
+      tags:
+      - {name: type, value: free}
+    singleValue: 3040.0
+  - meterId:
+      name: instance_golang_metadata_mcache_labeled
+      tags:
+      - {name: type, value: free}
+    singleValue: 11760.0
+  - meterId:
+      name: sw_go_tracing_context_performance
+      tags: []
+    histogramBuckets: [0.0, 1000.0, 10000.0, 50000.0, 100000.0, 300000.0, 500000.0,
+      1000000.0, 5000000.0, 1.0E7, 2.0E7, 5.0E7, 1.0E8]
+    histogramValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  - meterId:
+      name: instance_golang_metadata_mcache_labeled
+      tags:
+      - {name: type, value: inuse}
+    singleValue: 18816.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: free}
+    singleValue: 237568.0
+  - meterId:
+      name: instance_golang_metadata_mspan_labeled
+      tags:
+      - {name: type, value: inuse}
+    singleValue: 127520.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: objects}
+    singleValue: 4835616.0
+  - meterId:
+      name: sw_go_possible_leaked_context_counter
+      tags:
+      - {name: source, value: ignore}
+    singleValue: 0.0
+  - meterId:
+      name: sw_go_finished_tracing_context_counter
+      tags: []
+    singleValue: 8.0
+  - meterId:
+      name: instance_golang_memory_profiling_buckets
+      tags: []
+    singleValue: 1452130.0
+  - meterId:
+      name: instance_golang_gc_count_labeled
+      tags:
+      - {name: type, value: forced}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_gc_heap_goal
+      tags: []
+    singleValue: 9982946.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: total}
+    singleValue: 1.2582912E7
+  - meterId:
+      name: instance_golang_gc_heap_tiny_allocs
+      tags: []
+    singleValue: 220.0
+  - meterId:
+      name: instance_golang_memory_total
+      tags: []
+    singleValue: 1.9220728E7
+  - meterId:
+      name: sw_go_possible_leaked_context_counter
+      tags:
+      - {name: created_by, value: tracing}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_gc_heap_allocs_by_size
+      tags: []
+    histogramBuckets: [0.0, 1.0, 9.0, 17.0, 25.0, 33.0, 49.0, 65.0, 81.0, 97.0, 113.0,
+      129.0, 145.0, 161.0, 177.0, 193.0, 209.0, 225.0, 241.0, 257.0, 289.0, 321.0,
+      353.0, 385.0, 417.0, 449.0, 481.0, 513.0, 577.0, 641.0, 705.0, 769.0, 897.0,
+      1025.0, 1153.0, 1281.0, 1409.0, 1537.0, 1793.0, 2049.0, 2305.0, 2689.0, 3073.0,
+      3201.0, 3457.0, 4097.0, 4865.0, 5377.0, 6145.0, 6529.0, 6785.0, 6913.0, 8193.0,
+      9473.0, 9729.0, 10241.0, 10881.0, 12289.0, 13569.0, 14337.0, 16385.0, 18433.0,
+      19073.0, 20481.0, 21761.0, 24577.0, 27265.0, 28673.0, 32769.0]
+    histogramValues: [0, 330, 1450, 558, 578, 1172, 366, 304, 141, 330, 141, 111,
+      112, 80, 28, 193, 14, 19, 36, 88, 27, 23, 35, 15, 4, 102, 26, 23, 16, 13, 6,
+      18, 25, 39, 8, 16, 6, 13, 24, 27, 3, 4, 0, 4, 3, 3, 3, 0, 5, 0, 0, 2, 2, 16,
+      0, 0, 0, 1, 0, 5, 1, 0, 0, 0, 0, 0, 0, 0, 17]
+- serviceName: demo-frontend
+  meterSize: 43
+  meters:
+  - meterId:
+      name: instance_golang_gc_count_labeled
+      tags:
+      - {name: type, value: total}
+    singleValue: 3.0
+  - meterId:
+      name: sw_go_finished_ignored_context_counter
+      tags: []
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: stacks}
+    singleValue: 655360.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: released}
+    singleValue: 6643712.0
+  - meterId:
+      name: instance_golang_live_goroutines_num
+      tags: []
+    singleValue: 28.0
+  - meterId:
+      name: instance_golang_gc_count_labeled
+      tags:
+      - {name: type, value: automatic}
+    singleValue: 3.0
+  - meterId:
+      name: sw_go_created_tracing_context_counter
+      tags:
+      - {name: created_by, value: propagated}
+    singleValue: 0.0
+  - meterId:
+      name: sw_go_created_ignored_context_counter
+      tags:
+      - {name: created_by, value: sampler}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_heap_frees
+      tags: []
+    singleValue: 1657960.0
+  - meterId:
+      name: instance_golang_gc_limiter_last_enabled
+      tags: []
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_memory_other
+      tags: []
+    singleValue: 2590560.0
+  - meterId:
+      name: instance_golang_heap_alloc_size
+      tags: []
+    singleValue: 7835368.0
+  - meterId:
+      name: instance_golang_os_threads_num
+      tags: []
+    singleValue: 16.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: unused}
+    singleValue: 3161472.0
+  - meterId:
+      name: instance_golang_gc_stack_starting_size
+      tags: []
+    singleValue: 8192.0
+  - meterId:
+      name: instance_golang_gc_pauses
+      tags: []
+    histogramBuckets: [0.0, 64.0, 128.0, 192.0, 256.0, 320.0, 384.0, 448.0, 512.0,
+      640.0, 768.0, 896.0, 1024.0, 1280.0, 1536.0, 1792.0, 2048.0, 2560.0, 3072.0,
+      3584.0, 4096.0, 5120.0, 6144.0, 7168.0, 8192.0, 10240.0, 12288.0, 14336.0, 16384.0,
+      20480.0, 24576.0, 28672.0, 32768.0, 40960.0, 49152.0, 57344.0, 65536.0, 81920.0,
+      98304.0, 114688.0, 131072.0, 163840.0, 196608.0, 229376.0, 262144.0, 327680.0,
+      393216.0, 458752.0, 524288.0, 655360.0, 786432.0, 917504.0, 1048576.0, 1310720.0,
+      1572864.0, 1835008.0, 2097152.0, 2621440.0, 3145728.0, 3670016.0, 4194304.0,
+      5242880.0, 6291456.0, 7340032.0, 8388608.0, 1.048576E7, 1.2582912E7, 1.4680064E7,
+      1.6777216E7, 2.097152E7, 2.5165824E7, 2.9360128E7, 3.3554432E7, 4.194304E7,
+      5.0331648E7, 5.8720256E7, 6.7108864E7, 8.388608E7, 1.00663296E8, 1.17440512E8,
+      1.34217728E8, 1.6777216E8, 2.01326592E8, 2.34881024E8, 2.68435456E8, 3.3554432E8,
+      4.02653184E8, 4.69762048E8, 5.36870912E8, 6.7108864E8, 8.05306368E8, 9.39524096E8,
+      1.073741824E9, 1.34217728E9, 1.610612736E9, 1.879048192E9, 2.147483648E9, 2.68435456E9,
+      3.221225472E9, 3.758096384E9, 4.294967296E9, 5.36870912E9, 6.442450944E9, 7.516192768E9,
+      8.589934592E9, 1.073741824E10, 1.2884901888E10, 1.5032385536E10, 1.7179869184E10,
+      2.147483648E10, 2.5769803776E10, 3.0064771072E10, 3.4359738368E10, 4.294967296E10,
+      5.1539607552E10, 6.0129542144E10, 6.8719476736E10, 8.589934592E10, 1.03079215104E11,
+      1.20259084288E11, 1.37438953472E11, 1.7179869184E11, 2.06158430208E11, 2.40518168576E11,
+      2.74877906944E11, 3.4359738368E11, 4.12316860416E11, 4.81036337152E11, 5.49755813888E11,
+      6.8719476736E11, 8.24633720832E11, 9.62072674304E11, 1.099511627776E12, 1.37438953472E12,
+      1.649267441664E12, 1.924145348608E12, 2.199023255552E12, 2.74877906944E12, 3.298534883328E12,
+      3.848290697216E12, 4.398046511104E12, 5.49755813888E12, 6.597069766656E12, 7.696581394432E12,
+      8.796093022208E12, 1.099511627776E13, 1.3194139533312E13, 1.5393162788864E13,
+      1.7592186044416E13, 2.199023255552E13, 2.6388279066624E13, 3.0786325577728E13,
+      3.5184372088832E13, 4.398046511104E13, 5.2776558133248E13, 6.1572651155456E13,
+      7.0368744177664E13, 8.796093022208E13, 1.05553116266496E14, 1.23145302310912E14,
+      1.40737488355328E14]
+    histogramValues: [6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  - meterId:
+      name: sw_go_created_ignored_context_counter
+      tags:
+      - {name: created_by, value: propagated}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_memory_os_stacks
+      tags: []
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_cgo_calls
+      tags: []
+    singleValue: 770.0
+  - meterId:
+      name: instance_golang_sched_latencies
+      tags: []
+    histogramBuckets: [0.0, 64.0, 128.0, 192.0, 256.0, 320.0, 384.0, 448.0, 512.0,
+      640.0, 768.0, 896.0, 1024.0, 1280.0, 1536.0, 1792.0, 2048.0, 2560.0, 3072.0,
+      3584.0, 4096.0, 5120.0, 6144.0, 7168.0, 8192.0, 10240.0, 12288.0, 14336.0, 16384.0,
+      20480.0, 24576.0, 28672.0, 32768.0, 40960.0, 49152.0, 57344.0, 65536.0, 81920.0,
+      98304.0, 114688.0, 131072.0, 163840.0, 196608.0, 229376.0, 262144.0, 327680.0,
+      393216.0, 458752.0, 524288.0, 655360.0, 786432.0, 917504.0, 1048576.0, 1310720.0,
+      1572864.0, 1835008.0, 2097152.0, 2621440.0, 3145728.0, 3670016.0, 4194304.0,
+      5242880.0, 6291456.0, 7340032.0, 8388608.0, 1.048576E7, 1.2582912E7, 1.4680064E7,
+      1.6777216E7, 2.097152E7, 2.5165824E7, 2.9360128E7, 3.3554432E7, 4.194304E7,
+      5.0331648E7, 5.8720256E7, 6.7108864E7, 8.388608E7, 1.00663296E8, 1.17440512E8,
+      1.34217728E8, 1.6777216E8, 2.01326592E8, 2.34881024E8, 2.68435456E8, 3.3554432E8,
+      4.02653184E8, 4.69762048E8, 5.36870912E8, 6.7108864E8, 8.05306368E8, 9.39524096E8,
+      1.073741824E9, 1.34217728E9, 1.610612736E9, 1.879048192E9, 2.147483648E9, 2.68435456E9,
+      3.221225472E9, 3.758096384E9, 4.294967296E9, 5.36870912E9, 6.442450944E9, 7.516192768E9,
+      8.589934592E9, 1.073741824E10, 1.2884901888E10, 1.5032385536E10, 1.7179869184E10,
+      2.147483648E10, 2.5769803776E10, 3.0064771072E10, 3.4359738368E10, 4.294967296E10,
+      5.1539607552E10, 6.0129542144E10, 6.8719476736E10, 8.589934592E10, 1.03079215104E11,
+      1.20259084288E11, 1.37438953472E11, 1.7179869184E11, 2.06158430208E11, 2.40518168576E11,
+      2.74877906944E11, 3.4359738368E11, 4.12316860416E11, 4.81036337152E11, 5.49755813888E11,
+      6.8719476736E11, 8.24633720832E11, 9.62072674304E11, 1.099511627776E12, 1.37438953472E12,
+      1.649267441664E12, 1.924145348608E12, 2.199023255552E12, 2.74877906944E12, 3.298534883328E12,
+      3.848290697216E12, 4.398046511104E12, 5.49755813888E12, 6.597069766656E12, 7.696581394432E12,
+      8.796093022208E12, 1.099511627776E13, 1.3194139533312E13, 1.5393162788864E13,
+      1.7592186044416E13, 2.199023255552E13, 2.6388279066624E13, 3.0786325577728E13,
+      3.5184372088832E13, 4.398046511104E13, 5.2776558133248E13, 6.1572651155456E13,
+      7.0368744177664E13, 8.796093022208E13, 1.05553116266496E14, 1.23145302310912E14,
+      1.40737488355328E14]
+    histogramValues: [141, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  - meterId:
+      name: instance_golang_heap_frees_objects
+      tags: []
+    singleValue: 14576.0
+  - meterId:
+      name: sw_go_created_tracing_context_counter
+      tags:
+      - {name: created_by, value: sampler}
+    singleValue: 7.0
+  - meterId:
+      name: instance_golang_gc_heap_frees_by_size
+      tags: []
+    histogramBuckets: [0.0, 1.0, 9.0, 17.0, 25.0, 33.0, 49.0, 65.0, 81.0, 97.0, 113.0,
+      129.0, 145.0, 161.0, 177.0, 193.0, 209.0, 225.0, 241.0, 257.0, 289.0, 321.0,
+      353.0, 385.0, 417.0, 449.0, 481.0, 513.0, 577.0, 641.0, 705.0, 769.0, 897.0,
+      1025.0, 1153.0, 1281.0, 1409.0, 1537.0, 1793.0, 2049.0, 2305.0, 2689.0, 3073.0,
+      3201.0, 3457.0, 4097.0, 4865.0, 5377.0, 6145.0, 6529.0, 6785.0, 6913.0, 8193.0,
+      9473.0, 9729.0, 10241.0, 10881.0, 12289.0, 13569.0, 14337.0, 16385.0, 18433.0,
+      19073.0, 20481.0, 21761.0, 24577.0, 27265.0, 28673.0, 32769.0]
+    histogramValues: [0, 300, 4823, 209, 1541, 913, 504, 323, 38, 4350, 360, 40, 295,
+      15, 47, 91, 56, 28, 41, 42, 199, 7, 7, 13, 4, 4, 18, 22, 21, 70, 3, 9, 24, 15,
+      4, 43, 8, 11, 9, 8, 5, 14, 2, 7, 5, 3, 2, 5, 2, 0, 0, 0, 5, 1, 0, 0, 2, 0, 0,
+      5, 1, 0, 0, 0, 1, 1, 0, 0, 0]
+  - meterId:
+      name: instance_golang_gc_heap_objects
+      tags: []
+    singleValue: 11509.0
+  - meterId:
+      name: instance_golang_heap_alloc_objects
+      tags: []
+    singleValue: 26085.0
+  - meterId:
+      name: instance_golang_memory_metadata_other
+      tags: []
+    singleValue: 3105600.0
+  - meterId:
+      name: instance_golang_metadata_mspan_labeled
+      tags:
+      - {name: type, value: free}
+    singleValue: 800.0
+  - meterId:
+      name: sw_go_tracing_context_performance
+      tags: []
+    histogramBuckets: [0.0, 1000.0, 10000.0, 50000.0, 100000.0, 300000.0, 500000.0,
+      1000000.0, 5000000.0, 1.0E7, 2.0E7, 5.0E7, 1.0E8]
+    histogramValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  - meterId:
+      name: instance_golang_metadata_mcache_labeled
+      tags:
+      - {name: type, value: free}
+    singleValue: 11760.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: free}
+    singleValue: 139264.0
+  - meterId:
+      name: instance_golang_metadata_mcache_labeled
+      tags:
+      - {name: type, value: inuse}
+    singleValue: 18816.0
+  - meterId:
+      name: instance_golang_metadata_mspan_labeled
+      tags:
+      - {name: type, value: inuse}
+    singleValue: 178720.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: objects}
+    singleValue: 6177408.0
+  - meterId:
+      name: sw_go_possible_leaked_context_counter
+      tags:
+      - {name: source, value: ignore}
+    singleValue: 0.0
+  - meterId:
+      name: sw_go_finished_tracing_context_counter
+      tags: []
+    singleValue: 7.0
+  - meterId:
+      name: instance_golang_gc_count_labeled
+      tags:
+      - {name: type, value: forced}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_memory_profiling_buckets
+      tags: []
+    singleValue: 1452456.0
+  - meterId:
+      name: instance_golang_memory_heap_labeled
+      tags:
+      - {name: type, value: total}
+    singleValue: 1.6777216E7
+  - meterId:
+      name: instance_golang_gc_heap_tiny_allocs
+      tags: []
+    singleValue: 2716.0
+  - meterId:
+      name: instance_golang_gc_heap_goal
+      tags: []
+    singleValue: 1.2326226E7
+  - meterId:
+      name: instance_golang_memory_total
+      tags: []
+    singleValue: 2.4135928E7
+  - meterId:
+      name: sw_go_possible_leaked_context_counter
+      tags:
+      - {name: created_by, value: tracing}
+    singleValue: 0.0
+  - meterId:
+      name: instance_golang_gc_heap_allocs_by_size
+      tags: []
+    histogramBuckets: [0.0, 1.0, 9.0, 17.0, 25.0, 33.0, 49.0, 65.0, 81.0, 97.0, 113.0,
+      129.0, 145.0, 161.0, 177.0, 193.0, 209.0, 225.0, 241.0, 257.0, 289.0, 321.0,
+      353.0, 385.0, 417.0, 449.0, 481.0, 513.0, 577.0, 641.0, 705.0, 769.0, 897.0,
+      1025.0, 1153.0, 1281.0, 1409.0, 1537.0, 1793.0, 2049.0, 2305.0, 2689.0, 3073.0,
+      3201.0, 3457.0, 4097.0, 4865.0, 5377.0, 6145.0, 6529.0, 6785.0, 6913.0, 8193.0,
+      9473.0, 9729.0, 10241.0, 10881.0, 12289.0, 13569.0, 14337.0, 16385.0, 18433.0,
+      19073.0, 20481.0, 21761.0, 24577.0, 27265.0, 28673.0, 32769.0]
+    histogramValues: [0, 496, 8802, 819, 2755, 2768, 1158, 556, 320, 5124, 445, 100,
+      649, 77, 61, 207, 64, 42, 64, 118, 261, 16, 41, 28, 13, 102, 76, 44, 84, 214,
+      15, 48, 48, 59, 15, 77, 14, 24, 34, 27, 20, 49, 3, 16, 7, 7, 9, 15, 12, 0, 0,
+      4, 9, 17, 2, 0, 5, 3, 0, 5, 4, 0, 0, 0, 3, 13, 0, 0, 17]
+logItems: []

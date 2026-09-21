@@ -1,5 +1,7 @@
 # go-inject-trace-contrib
 
+[English](README.md) | [中文](README_CN.md)
+
 Compile-time instrumentation for Go services, delivered as [go-inject](https://github.com/kakj-go/go-inject)
 rule templates. One import plus one build flag — no framework-specific
 middleware, no manual span code. Two instrumentation backends live in this
@@ -38,12 +40,23 @@ go mod tidy          # after adding the import
 go build -toolexec=go-inject .
 ```
 
-Configuration is read at runtime from the standard `OTEL_*` environment
-variables — `OTEL_SERVICE_NAME`, `OTEL_EXPORTER_OTLP_ENDPOINT`,
-`OTEL_TRACES/METRICS/LOGS_EXPORTER`, `OTEL_PROPAGATORS`,
-`OTEL_TRACES_SAMPLER`, `OTEL_SDK_DISABLED` — plus
-`OTEL_GO_ENABLED/DISABLED_INSTRUMENTATIONS` for per-library gating, matching
-the upstream otelc behavior.
+Runtime configuration uses the standard `OTEL_*` environment variables.
+Required (defaults exist but are only useful for local smoke tests):
+
+| Variable | Meaning | Default if unset |
+|---|---|---|
+| `OTEL_SERVICE_NAME` | service name | `unknown_service:<exe>` |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | OTLP collector base URL | `http://localhost:4318` |
+
+All other variables — exporters, propagators, protocol, headers, timeouts,
+per-library gating (`OTEL_GO_ENABLED/DISABLED_INSTRUMENTATIONS`) — follow the
+[OpenTelemetry environment-variable spec][otelnv] and the
+[upstream otelc][otelc] behavior, and are compatible with them. One known
+gap: `OTEL_TRACES_SAMPLER` is not wired yet (always
+`ParentBased(AlwaysSample)`).
+
+[otelnv]: https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/
+[otelc]: https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation
 
 ### Apache SkyWalking (`skywalking`)
 
@@ -66,9 +79,19 @@ go mod tidy
 go build -toolexec=go-inject .
 ```
 
-Configuration is read at runtime from `SW_AGENT_*` environment variables
-(service name, backend address, sampling, and per-plugin options), matching
-the official agent's variable set.
+Runtime configuration uses `SW_AGENT_*` environment variables. Required
+(defaults exist but are only useful for local smoke tests):
+
+| Variable | Meaning | Default if unset |
+|---|---|---|
+| `SW_AGENT_NAME` | service name | `Your_ApplicationName` |
+| `SW_AGENT_REPORTER_GRPC_BACKEND_SERVICE` | OAP backend address | `127.0.0.1:11800` |
+
+All other variables — sampling, reporter intervals, authentication,
+per-plugin options (`SW_AGENT_PLUGIN_CONFIG_*`) — use the same variable set
+as the [official skywalking-go agent][swcfg] and are compatible with it.
+
+[swcfg]: https://skywalking.apache.org/docs/skywalking-go/next/en/setup/configurations/
 
 ## Layout
 

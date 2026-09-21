@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "demoapp/api;api";
+
+// Inventory is a small inventory service used by the compare demo.
+service Inventory {
+  rpc Reserve(ReserveRequest) returns (ReserveResponse) {}
+}
+
+message ReserveRequest {
+  string sku = 1;
+  int32 quantity = 2;
+}
+
+message ReserveResponse {
+  bool ok = 1;
+  string message = 2;
+}

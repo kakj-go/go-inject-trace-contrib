@@ -1,0 +1,87 @@
+==============================================================================
+1) TRACE INVENTORY (traces by root span role)
+==============================================================================
+root role                                      sky  otel
+db CREATE                                        2     2
+db INSERT                                        1     1
+db PING                                          2     2
+http.server GET /api/order                       3     3
+http.server GET /healthz                         2     2
+redis client                                     2     0   <-- count differs
+redis ping                                       2     2
+redis pipeline                                   2     0   <-- count differs
+
+==============================================================================
+2) BUSINESS TRACE TOPOLOGY (first GET /api/order trace each side)
+==============================================================================
+--- SKYWALKING ---
+  [demo-frontend] http.server GET /api/order   (GET:/api/order)
+    [demo-frontend] db INSERT   (Mysql/Exec)
+    [demo-frontend] redis set   (redis/set)
+    [demo-frontend] http.client GET /api/inventory   (GET:/api/inventory)
+      [demo-backend] http.server GET /api/inventory   (GET:/api/inventory)
+        [demo-backend] db SELECT   (Mysql/Query)
+    [demo-frontend] grpc.client api.Inventory/Reserve   (api.Inventory.Reserve)
+      [demo-backend] grpc.server api.Inventory/Reserve   (api.Inventory.Reserve)
+        [demo-backend] redis set   (redis/set)
+        [demo-backend] db UPDATE   (Mysql/Exec)
+        [demo-backend] grpc.detail api.Inventory.Reserve/Server/Response/SendResponse   (api.Inventory.Reserve/Server/Response/SendResponse)
+      [demo-frontend] grpc.detail api.Inventory.Reserve/Client/Request/SendMsg   (api.Inventory.Reserve/Client/Request/SendMsg)
+      [demo-frontend] grpc.detail api.Inventory.Reserve/Client/Response/RecvMsg   (api.Inventory.Reserve/Client/Response/RecvMsg)
+    [demo-frontend] redis get   (redis/get)
+--- OTEL ---
+  [demo-frontend] http.server GET /api/order   (GET /api/order)
+    [demo-frontend] redis set   (set)
+    [demo-frontend] grpc.client api.Inventory/Reserve   (api.Inventory/Reserve)
+      [demo-backend] grpc.server api.Inventory/Reserve   (api.Inventory/Reserve)
+        [demo-backend] redis set   (set)
+        [demo-backend] db UPDATE   (UPDATE)
+    [demo-frontend] redis get   (get)
+    [demo-frontend] http.client GET /api/inventory   (GET)
+      [demo-backend] http.server GET /api/inventory   (GET /api/inventory)
+        [demo-backend] db SELECT   (SELECT)
+    [demo-frontend] db INSERT   (INSERT)
+
+==============================================================================
+3) ROLE MULTISET across ALL business traces (grpc.detail = known convention extra)
+==============================================================================
+db INSERT                                         3    3  MATCH
+db SELECT                                         3    3  MATCH
+db UPDATE                                         3    3  MATCH
+grpc.client api.Inventory/Reserve                 3    3  MATCH
+grpc.detail api.Inventory.Reserve/Client/Request/SendMsg    3    0  sky-extra (convention)
+grpc.detail api.Inventory.Reserve/Client/Response/RecvMsg    3    0  sky-extra (convention)
+grpc.detail api.Inventory.Reserve/Server/Response/SendResponse    3    0  sky-extra (convention)
+grpc.server api.Inventory/Reserve                 3    3  MATCH
+http.client GET /api/inventory                    3    3  MATCH
+http.server GET /api/inventory                    3    3  MATCH
+http.server GET /api/order                        3    3  MATCH
+redis get                                         3    3  MATCH
+redis set                                         6    6  MATCH
+
+business traces: sky=3 otel=3, hard role mismatches: 0
+
+==============================================================================
+4) ATTRIBUTE SPOT CHECK (representative spans, first business trace)
+==============================================================================
+--- db INSERT
+    sky: {"db.statement": "INSERT INTO orders (sku, qty) VALUES (?, ?)", "db.type": "Mysql", "db.sql.parameters": "SKU-42, 1", "peer": "127.0.0.1:33061"}
+   otel: {"db.operation.name": "INSERT", "db.namespace": "demo", "server.address": "127.0.0.1", "db.query.text": "INSERT INTO orders (sku, qty) VALUES (?, ?)", "server.port": "33061"}
+--- db SELECT
+    sky: {"db.statement": "SELECT stock FROM inventory WHERE sku = ?", "db.type": "Mysql", "db.sql.parameters": "SKU-42", "peer": "127.0.0.1:33061"}
+   otel: {"db.operation.name": "SELECT", "db.namespace": "demo", "server.address": "127.0.0.1", "db.query.text": "SELECT stock FROM inventory WHERE sku = ?", "server.port": "33061"}
+--- db UPDATE
+    sky: {"db.statement": "UPDATE inventory SET stock = stock - ? WHERE sku = ?", "db.type": "Mysql", "db.sql.parameters": "1, SKU-42", "peer": "127.0.0.1:33061"}
+   otel: {"db.operation.name": "UPDATE", "db.namespace": "demo", "server.address": "127.0.0.1", "db.query.text": "UPDATE inventory SET stock = stock - ? WHERE sku = ?", "server.port": "33061"}
+--- redis set
+    sky: {"cache.type": "redis", "cache.op": "write", "cache.cmd": "set", "cache.key": "reserve:SKU-42", "cache.args": "set reserve:SKU-42 1 ex 60: ", "peer": "127.0.0.1:63791"}
+   otel: {"db.operation.name": "set", "server.address": "127.0.0.1", "db.query.text": "set reserve:SKU-42 1 ex 60", "server.port": "63791"}
+--- redis get
+    sky: {"cache.type": "redis", "cache.op": "read", "cache.cmd": "get", "cache.key": "order:1", "cache.args": "get order:1: ", "peer": "127.0.0.1:63791"}
+   otel: {"db.operation.name": "get", "server.address": "127.0.0.1", "db.query.text": "get order:4", "server.port": "63791"}
+--- http.client GET /api/inventory
+    sky: {"http.method": "GET", "url": "127.0.0.1:8081/api/inventory", "status_code": "200", "peer": "127.0.0.1:8081"}
+   otel: {"url.full": "http://127.0.0.1:8081/api/inventory?sku=SKU-42", "server.address": "127.0.0.1", "server.port": "8081", "http.response.status_code": "200"}
+--- grpc.client api.Inventory/Reserve
+    sky: {"url": "/api.Inventory/Reserve", "rpc.type": "Unary", "peer": "127.0.0.1:9090"}
+   otel: {"server.address": "127.0.0.1", "server.port": "9090", "rpc.grpc.status_code": "0"}
