@@ -1,0 +1,9 @@
+service: logslibs
+entry: /health
+health: /health
+port: 8080
+compare_stdout: true
+support-version:
+  - go: "1.25"
+  - go: "1.26"
+  - go: "1.27"

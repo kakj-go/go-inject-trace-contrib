@@ -1,0 +1,10 @@
+entry: /consumer
+health: /health
+port: '8080'
+env:
+  SW_AGENT_METER_COLLECT_INTERVAL: '1'
+dependencies: {}
+support-version:
+- go: 1.24
+- go: 1.25
+- go: 1.26

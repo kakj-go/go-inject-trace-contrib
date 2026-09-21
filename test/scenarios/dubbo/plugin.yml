@@ -1,0 +1,34 @@
+entry: /consumer
+health: /health
+port: '8080'
+env:
+  SW_AGENT_NAME: dubbo-client
+dependencies: {}
+support-version:
+- go: '1.25'
+  framework:
+  - v3.0.1
+  - v3.0.2
+  - v3.0.4
+  - v3.0.5
+build_steps: 'apt-get update -qq && apt-get install -y -qq protobuf-compiler
+
+  go install github.com/dubbogo/tools/cmd/protoc-gen-dubbo3grpc@latest
+
+  go install github.com/dubbogo/tools/cmd/protoc-gen-go-triple@v1.0.10-rc2
+
+  go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+
+  go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+
+  export PATH=$PATH:$(go env GOPATH)/bin
+
+  protoc -I={WS}/api --go_out={WS}/api --go-triple_out={WS}/api {WS}/api/api.proto'
+build_targets:
+- out: dubbo-server
+  pkg: /ws/go-server/cmd/server.go
+- out: dubbo-client
+  pkg: /ws/go-client/cmd/client.go
+app_script: DUBBO_GO_CONFIG_PATH={WS}/go-server/conf/dubbogo.yaml SW_AGENT_NAME=dubbo-server
+  {WS}/dubbo-server & sleep 5; exec env DUBBO_GO_CONFIG_PATH={WS}/go-client/conf/dubbogo.yaml
+  SW_AGENT_NAME=dubbo-client {WS}/dubbo-client

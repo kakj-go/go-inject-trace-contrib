@@ -1,0 +1,22 @@
+service: k8sclient
+entry: /health
+health: /health
+port: 8080
+dependencies:
+  k3s-server:
+    image: rancher/k3s:v1.27.1-k3s1
+    command: server --disable traefik --disable servicelb
+    hostname: k3s-server
+    privileged: true
+    environment:
+      K3S_TOKEN: test-tokens
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - kubectl get --raw /readyz
+      interval: 10s
+      timeout: 15s
+      retries: 60
+support-version:
+  - go: "1.26"
+    framework: [v0.35.0]

@@ -1,0 +1,12 @@
+service: otelsdk
+entry: /health
+health: /health
+port: 8080
+env:
+  # net/http instrumentation ships in M1; keep both sides free of net/http
+  # spans so this scenario gates the M0 skeleton only.
+  OTEL_GO_DISABLED_INSTRUMENTATIONS: nethttp
+support-version:
+  - go: "1.25"
+  - go: "1.26"
+  - go: "1.27"

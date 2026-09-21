@@ -1,0 +1,25 @@
+entry: /execute
+health: /health
+port: '8080'
+env: {}
+dependencies:
+  pulsar-server:
+    image: apachepulsar/pulsar:3.2.0
+    command:
+    - bash
+    - -c
+    - bin/pulsar standalone
+    ports:
+    - 6650
+    # official scenario starts with no health gate; pulsar 3.2 standalone
+    # takes 20-40s to accept clients, which races the app's first publish
+    healthcheck:
+      test:
+      - CMD
+      - bin/pulsar-admin brokers healthcheck
+      interval: 10s
+      retries: 30
+support-version:
+- go: '1.25'
+  framework:
+  - v0.12.0

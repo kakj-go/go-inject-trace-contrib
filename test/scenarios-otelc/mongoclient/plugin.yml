@@ -1,0 +1,15 @@
+service: mongoclient
+entry: /health
+health: /health
+port: 8080
+dependencies:
+  mongo-server:
+    image: mongo:7.0
+    hostname: mongo-server
+support-version:
+  - go: "1.25"
+    framework: [v1.17.9]
+  - go: "1.26"
+    framework: [v1.17.9]
+  - go: "1.27"
+    framework: [v1.17.9]

@@ -1,0 +1,36 @@
+entry: /execute
+health: /health
+port: '8080'
+env:
+  SW_AGENT_PLUGIN_CONFIG_GORM_COLLECT_PARAMETER: 'true'
+dependencies:
+  postgres-server:
+    image: postgres:15-alpine
+    hostname: postgres-server
+    expose:
+    - '5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U postgres -d test
+      interval: 5s
+      timeout: 60s
+      retries: 120
+support-version:
+- go: '1.25'
+  framework:
+  - v1.5.2
+  - v1.5.4
+- go: '1.25'
+  framework:
+  - v1.5.10
+  - v1.5.11
+  excepted-file: config/excepted-gorm-v1.25.10.yml
+- go: '1.25'
+  framework:
+  - v1.6.0
+  excepted-file: config/excepted-gorm-v1.25.10.yml

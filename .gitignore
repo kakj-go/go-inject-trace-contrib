@@ -8,3 +8,10 @@
 /.idea
 *.iml
 /.zcode/
+
+# A/B test build artifacts and tool binaries (rebuilt on each run)
+test/runner/build/
+test/runner/bin/
+test/runner/*.log
+test/runner/*.err
+__pycache__/

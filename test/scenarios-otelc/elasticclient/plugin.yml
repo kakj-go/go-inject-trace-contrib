@@ -1,0 +1,22 @@
+service: elasticclient
+entry: /health
+health: /health
+port: 8080
+dependencies:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    hostname: elasticsearch
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl -s http://localhost:9200 >/dev/null
+      interval: 10s
+      timeout: 10s
+      retries: 60
+support-version:
+  - go: "1.26"
+    framework: [v7.0.32]

@@ -1,0 +1,23 @@
+service: amqpclient
+entry: /health
+health: /health
+port: 8080
+dependencies:
+  amqp-server:
+    image: rabbitmq:3.11.14-management
+    hostname: amqp-server
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: "123456"
+    healthcheck:
+      test:
+      - CMD
+      - rabbitmq-diagnostics
+      - -q
+      - ping
+      interval: 5s
+      timeout: 10s
+      retries: 60
+support-version:
+  - go: "1.26"
+    framework: [v1.15.0]

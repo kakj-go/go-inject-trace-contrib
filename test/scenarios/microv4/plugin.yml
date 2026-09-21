@@ -1,0 +1,24 @@
+entry: /consumer
+health: /health
+port: '8080'
+env:
+  SW_AGENT_NAME: micro-client
+dependencies: {}
+support-version:
+- go: '1.25'
+  framework:
+  - v4.6.0
+  - v4.7.0
+  - v4.8.0
+  - v4.8.1
+  - v4.9.0
+  - v4.10.0
+  - v4.10.1
+  - v4.10.2
+build_targets:
+- out: micro-server
+  pkg: /ws/server.go
+- out: micro-client
+  pkg: /ws/client.go
+app_script: SW_AGENT_NAME=micro-server {WS}/micro-server & sleep 5; exec env SW_AGENT_NAME=micro-client
+  {WS}/micro-client

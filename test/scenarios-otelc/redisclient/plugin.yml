@@ -1,0 +1,15 @@
+service: redisclient
+entry: /health
+health: /health
+port: 8080
+dependencies:
+  redis-server:
+    image: redis:7.2
+    hostname: redis-server
+support-version:
+  - go: "1.25"
+    framework: [v9.22.0]
+  - go: "1.26"
+    framework: [v9.22.0]
+  - go: "1.27"
+    framework: [v9.22.0]

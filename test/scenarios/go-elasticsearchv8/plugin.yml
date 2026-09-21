@@ -1,0 +1,18 @@
+entry: /execute
+health: /health
+port: '8080'
+env: {}
+dependencies:
+  elasticsearch:
+    image: elasticsearch:8.13.4
+    hostname: elasticsearch
+    ports:
+    - 9200
+    volumes:
+    - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+support-version:
+- go: '1.25'
+  framework:
+  - v8.11.1
+  - v8.11.0
+  - v8.10.0

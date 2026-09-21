@@ -1,0 +1,13 @@
+entry: /consumer
+health: /health
+port: '8080'
+env: {}
+dependencies: {}
+support-version:
+- go: '1.25'
+  framework:
+  - v1.10.0
+  - v1.20.0
+  - v1.30.0
+  - v1.40.0
+  - v1.50.0

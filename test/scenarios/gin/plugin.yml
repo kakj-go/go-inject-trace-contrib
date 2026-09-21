@@ -1,0 +1,17 @@
+entry: /consumer
+health: /health
+port: '8080'
+env:
+  SW_AGENT_PLUGIN_CONFIG_GIN_COLLECT_REQUEST_HEADERS: h1,h2
+  SW_AGENT_PLUGIN_CONFIG_GIN_HEADER_LENGTH_THRESHOLD: '17'
+dependencies: {}
+support-version:
+- go: 1.24
+  framework:
+  - v1.9.0
+- go: 1.25
+  framework:
+  - v1.10.1
+- go: 1.26
+  framework:
+  - v1.10.1

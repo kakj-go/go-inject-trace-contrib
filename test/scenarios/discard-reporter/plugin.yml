@@ -1,0 +1,9 @@
+entry: /consumer
+health: /health
+port: '8080'
+env:
+  SW_AGENT_REPORTER_DISCARD: 'true'
+  SW_AGENT_PLUGIN_CONFIG_HTTP_SERVER_COLLECT_PARAMETERS: 'true'
+dependencies: {}
+support-version:
+- go: '1.25'

@@ -1,0 +1,39 @@
+entry: /consumer
+health: /health
+port: '8080'
+env:
+  SW_AGENT_NAME: grpc-client
+dependencies: {}
+support-version:
+- go: 1.24
+  framework:
+  - v1.55.0
+  - v1.56.0
+  - v1.57.0
+  - v1.58.0
+  - v1.59.0
+  - v1.60.0
+  - v1.62.0
+  - v1.64.0
+- go: 1.25
+  framework:
+  - v1.81.1
+- go: 1.26
+  framework:
+  - v1.81.1
+build_steps: 'apt-get update -qq && apt-get install -y -qq protobuf-compiler
+
+  go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+
+  go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+
+  export PATH=$PATH:$(go env GOPATH)/bin
+
+  protoc -I={WS}/api --go_out={WS}/api --go-grpc_out={WS}/api {WS}/api/api.proto'
+build_targets:
+- out: grpc-server
+  pkg: /ws/grpc_server
+- out: grpc-client
+  pkg: /ws/grpc_client
+app_script: SW_AGENT_NAME=grpc-server {WS}/grpc-server & sleep 3; exec env SW_AGENT_NAME=grpc-client
+  {WS}/grpc-client

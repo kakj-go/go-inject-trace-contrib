@@ -1,0 +1,20 @@
+entry: /consumer
+health: /health
+port: '8080'
+env:
+  SW_AGENT_PLUGIN_CONFIG_GOFRAME_COLLECT_REQUEST_PARAMETERS: 'true'
+  SW_AGENT_PLUGIN_CONFIG_GOFRAME_COLLECT_REQUEST_HEADERS: h1,h2
+  SW_AGENT_PLUGIN_CONFIG_GOFRAME_HEADER_LENGTH_THRESHOLD: '17'
+dependencies: {}
+support-version:
+- go: '1.25'
+  framework:
+  - v2.7.3
+  - v2.7.2
+  - v2.7.1
+  - v2.7.0
+  - v2.6.4
+  - v2.6.3
+  - v2.6.2
+  - v2.6.1
+  - v2.6.0

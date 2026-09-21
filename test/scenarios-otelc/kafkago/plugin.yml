@@ -1,0 +1,24 @@
+service: kafkago
+entry: /health
+health: /health
+port: 8080
+dependencies:
+  zookeeper-server:
+    image: zookeeper:3.9.2
+    hostname: zookeeper-server
+  kafka-server:
+    image: bitnamilegacy/kafka:3.7.0
+    hostname: kafka-server
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-server:2181
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: PLAINTEXT://kafka-server:9092
+    depends_on:
+    - zookeeper-server
+support-version:
+  - go: "1.25"
+    framework: [v0.4.51]
+  - go: "1.26"
+    framework: [v0.4.51]
+  - go: "1.27"
+    framework: [v0.4.51]

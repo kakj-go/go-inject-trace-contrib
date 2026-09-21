@@ -1,0 +1,35 @@
+entry: /execute
+health: /health
+port: '8080'
+env:
+  SW_AGENT_PLUGIN_CONFIG_MONGO_COLLECT_STATEMENT: 'true'
+dependencies:
+  mongo:
+    image: mongo
+    hostname: mongo
+    expose:
+    - '27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: database
+    healthcheck:
+      test:
+      - CMD
+      - bash
+      - -c
+      - cat < /dev/null > /dev/tcp/127.0.0.1/27017
+      interval: 5s
+      timeout: 60s
+      retries: 120
+support-version:
+- go: '1.25'
+  framework:
+  - v1.10.5
+  - v1.11.1
+  - v1.10.6
+  - v1.11.2
+  - v1.11.3
+  - v1.11.4
+  - v1.11.6
+  - v1.11.7

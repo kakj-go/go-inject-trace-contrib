@@ -1,0 +1,13 @@
+entry: /consumer
+health: /health
+port: '8080'
+# official pprof scenario's excepted.yml expects the http.params tag, but its
+# startup.sh (unlike the http scenario's) never exports the collect-parameters
+# switch; mirror the http scenario so the expectation is satisfiable
+env:
+  SW_AGENT_PLUGIN_CONFIG_HTTP_SERVER_COLLECT_PARAMETERS: 'true'
+dependencies: {}
+support-version:
+- go: 1.24
+- go: 1.25
+- go: 1.26

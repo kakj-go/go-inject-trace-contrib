@@ -1,0 +1,7 @@
+service: openaiclient
+entry: /health
+health: /health
+port: 8080
+support-version:
+  - go: "1.26"
+    framework: [v1.12.0]
